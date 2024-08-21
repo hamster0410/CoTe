@@ -1,0 +1,90 @@
+public int solution(int a, int b, int c, int d) {
+			int answer = 0;
+			int situation = 0 ;
+			if (a == b ) {
+				if( b== c) {
+					if(c==d) {
+						answer = 1111 * a;
+					}else {
+						//abc d
+						situation = 2;
+						answer = (10 * a + d) *(10 * a + d)  ;
+					}
+				}else {
+					if(c==d) {
+						//ab cd
+						situation = 3;
+						answer = (a + c) * Math.abs(a - c);
+					}else {
+						if(a==d) {
+							//abd c
+							situation = 2;
+							answer = (10 * a + c) * (10 * a + c);
+						}else {
+							//ab c d
+							situation = 4;
+							answer = c * d;
+						}
+					}
+				}
+			}else {
+				if(b==c) {
+					if(a==d) {
+						//ad bc
+						situation = 3;
+						answer = (a + b) * Math.abs(d - c);
+					}else {
+						if(c == d) {
+							//a bcd 
+							situation = 2;
+							answer = (10 * b + a) * (10 * b + a);
+						}else {
+							//a bc d 
+							situation = 4;
+							answer = a * d;
+						}
+					} 
+				}else {
+					if(a == d) {
+						if(d == c) {
+							//adc b
+							situation = 2;
+							answer = (10 * a + b) * (10 * a +b);
+						}else {
+							//ad b c
+							situation = 4;
+							answer = b * c;
+						}
+					}else if(b == d) {
+						if(a==c) {
+							//ac b d
+							answer = b * d
+	                        System.out.println("please");
+							situation = 3;
+						}else {
+							//a bd c
+							answer = a * c;
+							situation = 4;
+						}
+					}else if(c == d) {
+						//a b cd
+						answer = a * b;
+						situation = 4;
+					}else {
+						if(a == c) {
+							//ac bd
+							answer = (a + b) * Math.abs(c - d);
+							situation= 3;
+						}else {
+							//a b c d 
+							int min1 = a < b ? a : b;
+							int min2 = c < d ? c : d;
+							answer = min1 < min2 ? min1 : min2;
+								situation = 5;
+						}
+					}
+				}
+			}
+			
+	        return answer;
+	    }
