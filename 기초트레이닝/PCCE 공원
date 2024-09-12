@@ -1,0 +1,36 @@
+class Solution {
+    static int parks_row;
+    static int parks_col;
+    static String[][] s_park;
+    public int solution(int[] mats, String[][] park) {
+        int answer = 0;
+        parks_row = park.length;
+        parks_col = park[0].length;
+        
+        s_park = park;
+        for(int i = 0; i< park.length;i++){
+            for(int j = 0; j<park[0].length;j++){
+                if(!park[i][j].equals("-1")) continue;
+
+                for(int k = 0; k<mats.length;k++){
+                    if(checking(i,j,mats[k])){
+                        answer = Math.max(answer,mats[k]);
+                    }
+                }
+            }
+        }
+        if (answer ==0 ) return -1;
+        else return answer;
+    }
+
+    private boolean checking(int row, int col,int length) {
+        if(row+length > parks_row || col + length > parks_col) return false;
+        for(int i = row; i < row+length;i++){
+            for(int j = col; j < col+length;j++){
+                if(!s_park[i][j].equals("-1")) return false;
+            }
+        }
+
+        return true;
+    }
+}
