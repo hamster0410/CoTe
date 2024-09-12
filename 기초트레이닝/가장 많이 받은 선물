@@ -1,0 +1,54 @@
+   import java.util.HashMap;
+
+class Solution {
+
+public int solution(String[] friends, String[] gifts) {
+        int answer = 0;
+        int [] answer_list = new int [friends.length];
+        HashMap<String, Integer> map = new HashMap<String, Integer>();
+        for(int i = 0 ; i < friends.length;i++) {
+            map.put(friends[i], i);
+        }
+        int [][] present = new int[friends.length][friends.length];
+
+        // 주고받은 선물 매트릭스
+        for(String s : gifts) {
+            String [] temp = s.split(" ");
+            String a = temp[0];
+            String b = temp[1];
+            present[map.get(a)][map.get(b)] +=1;
+        }
+        
+        int [] prsent_point = new int[friends.length];
+        for(int i = 0 ; i < friends.length;i++	) {
+            //주고 받은 선물 체크
+            int sum = 0;
+            int sum2 = 0;
+            for(int j = 0 ; j < friends.length; j++) {
+                sum += present[i][j];
+                sum2 += present[j][i];
+            }
+            prsent_point[i] = sum - sum2;
+        }
+        
+        for(int i = 1; i< friends.length;i++) {
+            for(int j = 0; j<i;j++) {
+                //[i][j]는 j번째 사람이 기준 [j][i]는 i번째 사람이 기준
+                int a = present[i][j];
+                int b = present[j][i];
+                if(a>b) answer_list[i] +=1;
+                else if( a<b) answer_list[j] +=1;
+                else {
+                    if(prsent_point[j] < prsent_point[i]) answer_list[i] +=1;
+                    else if(prsent_point[i] < prsent_point[j]) answer_list[j] +=1;
+                }
+            }
+        }
+        int maxGifts = 0;
+        for (int count : answer_list) {
+            maxGifts = Math.max(maxGifts, count);
+        }
+        return maxGifts;
+    }
+
+}
